@@ -1,0 +1,43 @@
+# values.yaml
+image:
+  repository: yourusername/app
+  blueTag: "v1"
+  greenTag: "v2"
+  pullPolicy: IfNotPresent
+  tag: v1 # Default tag
+
+service:
+  type: ClusterIP  # Can be 'ClusterIP', 'NodePort', or 'LoadBalancer'
+  port: 8080
+
+replicaCount: 2
+
+livenessProbe:
+  httpGet:
+    path: /health
+    port: 8080
+  initialDelaySeconds: 5
+  periodSeconds: 10
+
+readinessProbe:
+  httpGet:
+    path: /health
+    port: 8080
+  initialDelaySeconds: 5
+  periodSeconds: 10
+
+autoscaling:
+  enabled: false
+
+ingress:
+  enabled: false  # Set to true to enable ingress
+  # Optionally, specify ingress configuration details
+  # hosts:
+  #   - host: myapp.local
+  #     paths:
+  #       - /
+  # tls: [] # Optional TLS configuration for the ingress
+
+serviceAccount:
+  create: true  # Set to 'true' to create the service account automatically, or 'false' if you want to create it manually.
+  name: ""      # Optionally, specify a name for the service account. Leave empty to auto-generate a name.
