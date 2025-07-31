@@ -9,18 +9,18 @@ spec:
   selector:
     matchLabels:
       app: my-app
-      version: blue  # Default to blue version for Blue-Green Deployment
+      version: {{ .Values.version }}  # Use the dynamic version (blue or green)
   template:
     metadata:
       annotations:
         {{- toYaml .Values.podAnnotations | nindent 8 }}
       labels:
         app: my-app
-        version: blue
+        version: {{ .Values.version }}  # Use the dynamic version (blue or green)
     spec:
       containers:
         - name: my-app
-          image: "{{ .Values.image.repository }}:{{ .Values.image.blueTag }}"
+          image: "{{ .Values.image.repository }}:{{ .Values.image.blueTag }}"  # Use the correct tag based on version
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - name: http

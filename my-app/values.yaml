@@ -1,6 +1,6 @@
 # values.yaml
 image:
-  repository: yourusername/app
+  repository: arzerin/app
   blueTag: "v1"
   greenTag: "v2"
   pullPolicy: IfNotPresent
